@@ -38,6 +38,7 @@ contract Ownable {
      */
     modifier onlyOwner(){
         require(msg.sender == _owner, "Caller should be owner of contract");
+        _;
     }
 
     /**
@@ -88,6 +89,7 @@ contract Pausable is Ownable {
      */
     modifier whenNotPaused(){
         require(false == _paused, "Requires contract to not be paused");
+        _;
     }
 
     /**
@@ -95,6 +97,7 @@ contract Pausable is Ownable {
      */
     modifier paused(){
         require(true == _paused, "Requires contract to be paused");
+        _;
     }
 }
 
@@ -208,7 +211,7 @@ contract ERC721 is Pausable, ERC165 {
         // require the msg sender to be the owner of the contract or isApprovedForAll() to be true
         require(_owner == msg.sender, "Approval can be done if sender is contract owner or approved by owner");
         // add 'to' address to token approvals
-        _tokenApproval[tokenId] = to;
+        _tokenApprovals[tokenId] = to;
         // emit Approval Event
         emit Approval(tokenOwner, to, tokenId);
     }
@@ -299,13 +302,13 @@ contract ERC721 is Pausable, ERC165 {
     internal {
 
         // revert if given tokenId already exists or given address is invalid
-        require(address != 0, "Invalid address for minting token");
-        require(!_exits(tokenId), "Token is already minted");
+        require(to != address(0), "Invalid address for minting token");
+        require(!_exists(tokenId), "Token is already minted");
         // mint tokenId to given address & increase token count of owner
         _tokenOwner[tokenId] = to;
         _ownedTokensCount[to].increment();
         // emit Transfer event
-        emit Tranfer(msg.sender, to, tokenId);
+        emit Transfer(msg.sender, to, tokenId);
     }
 
     // @dev Internal function to transfer ownership of a given token ID to another address.
@@ -314,13 +317,13 @@ contract ERC721 is Pausable, ERC165 {
         // require from address is the owner of the given token
         require(_isApprovedOrOwner(from, tokenId), "Transfer can be done by only owner or approved address for tokenId");
         // require token is being transfered to valid address
-        require(to!=0, "Receiver must be a valid address");
+        require(to!=address(0), "Receiver must be a valid address");
         // clear approval
         _tokenApprovals[tokenId] = address(0);
         // update token counts & transfer ownership of the token ID
         _ownedTokensCount[from].decrement();
         _tokenOwner[tokenId] = to;
-        _ownedTokenCount[to].increment();
+        _ownedTokensCount[to].increment();
         // emit correct event
         emit Transfer(from, to, tokenId);
     }
@@ -561,21 +564,21 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     function name()
     external
     view
-    returns (string) {
+    returns (string memory) {
         return _name;
     }
 
     function symbol()
     external
     view
-    returns (string) {
+    returns (string memory) {
         return _symbol;
     }
 
     function baseTokenURI()
     external
     view
-    returns (string) {
+    returns (string memory) {
         return _baseTokenURI;
     }
 
@@ -593,27 +596,25 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     function _setTokenURI(uint256 tokenId)
     internal {
         require(_exists(tokenId), "The specified tokwn doesn't exists");
-        _tokenURIS[tokenId] = strConcat(_baseTokenURI, uint2str(tokenId));
+        _tokenURIs[tokenId] = strConcat(_baseTokenURI, uint2str(tokenId));
     }
 }
 
 //  CustomERC721Token contract that inherits from the ERC721Metadata contract.
-contract CustomERC721Token is ERC721MetaData {
+contract CustomERC721Token is ERC721Metadata {
 
     constructor(string memory name, string memory symbol, string memory _baseTokenURI)
-        ERC721Metadat(name, symbol, "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/") public {}
+        ERC721Metadata(name, symbol, "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/") public {}
 
-//  2) create a public mint() that does the following:
-//      -can only be executed by the contract owner
-//      -takes in a 'to' address, tokenId, and tokenURI as parameters
-//      -returns a true boolean upon completion of the function
-//      -calls the superclass mint and setTokenURI functions
+    /**
+     * @dev public mint() that calls the superclass mint and setTokenURI functions
+     */
     function mint(address to, uint256 tokenId)
     public
     onlyOwner
     returns (bool){
         super._mint(to, tokenId);
-        super.setTokenURI(tokenId);
+        super._setTokenURI(tokenId);
         return true;
     }
 }
