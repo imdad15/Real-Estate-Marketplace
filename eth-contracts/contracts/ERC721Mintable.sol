@@ -7,26 +7,50 @@ import 'openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol';
 import "./Oraclize.sol";
 
 contract Ownable {
-    //  TODO's
-    //  1) create a private '_owner' variable of type address with a public getter function
-    //  2) create an internal constructor that sets the _owner var to the creater of the contract 
-    //  3) create an 'onlyOwner' modifier that throws if called by any account other than the owner.
-    //  4) fill out the transferOwnership function
-    //  5) create an event that emits anytime ownerShip is transfered (including in the constructor)
 
-    function transferOwnership(address newOwner) public onlyOwner {
-        // TODO add functionality to transfer control of the contract to a newOwner.
-        // make sure the new owner is a real address
+    address _owner;    //'_owner' variable of type address
 
+    /**
+     * @dev event that is emitted anytime ownerShip is transfered (including in the constructor)
+     */
+    event OwnershipTransferred(address newOwner);
+
+    /**
+     * @dev internal constructor that sets the _owner var to the creater of the contract
+     */
+    constructor() internal {
+        _owner = msg.sender;
+        emit OwnershipTransferred(_owner);
+    }
+
+    /**
+     * @dev public getter function for owner
+    */
+    function owner()
+    public
+    view
+    returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev 'onlyOwner' modifier that throws if called by any account other than the owner.
+     */
+    modifier onlyOwner(){
+        require(msg.sender == _owner, "Caller should be owner of contract");
+    }
+
+    /**
+     * @dev transferOwnership function
+     */
+    function transferOwnership(address newOwner)
+    public
+    onlyOwner
+        require(newOwner != address(0), "Ownership can only be transferred to a valid account");
+        _owner = newOwner;
+        emit OwnershipTransferred(_owner);
     }
 }
-
-//  TODO's: Create a Pausable contract that inherits from the Ownable contract
-//  1) create a private '_paused' variable of type bool
-//  2) create a public setter using the inherited onlyOwner modifier 
-//  3) create an internal constructor that sets the _paused variable to false
-//  4) create 'whenNotPaused' & 'paused' modifier that throws in the appropriate situation
-//  5) create a Paused & Unpaused event that emits the address that triggered the event
 
 contract ERC165 {
     bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
