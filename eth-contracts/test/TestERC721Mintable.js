@@ -1,13 +1,13 @@
-var ERC721MintableComplete = artifacts.require('ERC721Mintable');
+var CustomERC721Token = artifacts.require('CustomERC721Token');
 
-contract('TestERC721Mintable', accounts => {
+contract('TestCustomERC721Token', accounts => {
 
     const accountOne = accounts[0];
     const accountTwo = accounts[1];
 
     describe('match erc721 spec', function () {
         beforeEach(async function () { 
-            this.contract = await ERC721MintableComplete.new({from: accountOne});
+            this.contract = await CustomERC721Token.new("Bitland", "BTL", {from: accountOne});
 
             await this.contract.mint(accountOne, 1, {from: accountOne});
             await this.contract.mint(accountOne, 12, {from: accountOne});
@@ -30,7 +30,7 @@ contract('TestERC721Mintable', accounts => {
         it('should return token uri', async function () { 
             const tokenId = 123;
             const tokenURI = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/123";
-            const toVerifyURI = await contract.tokenURI.call(tokenId);
+            const toVerifyURI = await this.contract.tokenURI.call(tokenId, {from: accountOne});
             assert.equal(tokenURI, toVerifyURI, "Invalid token URI");
         });
 
@@ -45,23 +45,22 @@ contract('TestERC721Mintable', accounts => {
 
     describe('have ownership properties', function () {
         beforeEach(async function () { 
-            this.contract = await ERC721MintableComplete.new({from: accountOne});
+            this.contract = await CustomERC721Token.new("Bitland", "BTL", {from: accountOne});
         })
 
         it('should fail when minting when address is not contract owner', async function () { 
-            const failed = false;
+            let failed = false;
             try {
                 await this.contract.mint(accountTwo, 99, { from: accountTwo});
             } catch(error){
                 failed = true;
             }
-            assert(failed, "Only contract owner shpuld be able to mint tokens");
+            assert(failed, "Only contract owner should be able to mint tokens");
         })
 
         it('should return contract owner', async function () { 
-            const contractOwner = await this.contract.getOwner.call();
+            const contractOwner = await this.contract.owner.call({from: accountTwo});
             assert(contractOwner, accountOne, "Incorrect contract owner");
         })
-
     });
 })
