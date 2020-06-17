@@ -52,6 +52,53 @@ contract Ownable {
     }
 }
 
+/**
+ *  @dev Pausable contract that inherits from the Ownable contract
+ */
+contract Pausable is Ownable {
+
+    bool private _paused;   //  private '_paused' variable of type bool
+
+    emit Paused();          // event that emits the paused contract status
+    emit Unpaused();        // event that emits the unpaused contract status
+
+    /**
+     * @dev internal constructor that sets the _paused variable to false
+     */
+    constructor() internal {
+        _paused = false;
+    }
+
+    /**
+     * @dev create a public setter using the inherited onlyOwner modifier
+     */
+    function updateStatus(bool pause)
+    public
+    onlyOwner {
+        _paused = pause;
+        if(_paused){
+            emit Paused();
+        } else {
+            emit Unpaused();
+        }
+    }
+
+    /**
+     * @dev modifier to check if contract is not paused
+     */
+    modifier whenNotPaused(){
+        require(false == _paused, "Requires contract to not be paused");
+    }
+
+    /**
+     *  @dev modifier to check if contract is paused
+     */
+    modifier paused(){
+        require(true == _paused, "Requires contract to be paused");
+    }
+}
+
+
 contract ERC165 {
     bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
     /*
