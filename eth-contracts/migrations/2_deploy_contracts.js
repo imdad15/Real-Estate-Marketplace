@@ -4,5 +4,5 @@ var SolnSquareVerifier = artifacts.require("./SolnSquareVerifier.sol");
 
 module.exports = function(deployer) {
   deployer.deploy(Verifier);
-  deployer.deploy(SolnSquareVerifier);
+  deployer.deploy(SolnSquareVerifier, "Bitland", "BTL");
 };
