@@ -43,6 +43,7 @@ https://rinkeby.opensea.io/assets/0xd0868d0ca0e006431f01c3edd1266ee16364f0b6/4
 https://rinkeby.opensea.io/assets/0xd0868d0ca0e006431f01c3edd1266ee16364f0b6/3
 https://rinkeby.opensea.io/assets/0xd0868d0ca0e006431f01c3edd1266ee16364f0b6/2
 https://rinkeby.opensea.io/assets/0x0fbacb5798d418b8965fbebe0a514084061cdb46/5
+https://rinkeby.opensea.io/assets/0xd0868d0ca0e006431f01c3edd1266ee16364f0b6/0
 
 Remaining assets - 
 
