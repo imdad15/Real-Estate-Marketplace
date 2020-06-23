@@ -34,7 +34,7 @@ Token generated using VerifiedMint() function from SolnSquareVerifier - https://
 
 # OpenSea assets - 
 
-Storefront - https://rinkeby.opensea.io/storefront/bitland-v4
+Storefront - https://rinkeby.opensea.io/assets/bitland-v4
 
 Assets sold to 0x5BEeFfcf97b675c42A214Dad9c4423e52884F71a - 
 
