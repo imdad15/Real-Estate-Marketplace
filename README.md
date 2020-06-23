@@ -5,6 +5,9 @@ This project is used for building a decentralized housing product.
 # Contracts on Rinkeby
 Verifier - 0x44fbb700b55D6F85D58bA51390f837aB95aBB12F
 SolnSquareVerifier - 0xd0868d0CA0e006431f01C3EDD1266eE16364f0B6
+Minted Bitland tokens(generated directly using mint() function of ERC721)- https://rinkeby.etherscan.io/token/0xd0868d0ca0e006431f01c3edd1266ee16364f0b6
+
+Token generated using VerifiedMint() function from SolnSquareVerifier - https://rinkeby.etherscan.io/token/0x0fbacb5798d418b8965fbebe0a514084061cdb46
 
 # OpenSea assets - 
 
