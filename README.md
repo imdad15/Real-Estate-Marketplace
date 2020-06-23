@@ -1,6 +1,24 @@
-# Udacity Blockchain Capstone
+# Real Estate Marketplace(Udacity Blockchain Capstone)
 
-The capstone will build upon the knowledge you have gained in the course in order to build a decentralized housing product. 
+This project is used for building a decentralized housing product. 
+
+# Contracts on Rinkeby
+Verifier - 0x44fbb700b55D6F85D58bA51390f837aB95aBB12F
+SolnSquareVerifier - 0xd0868d0CA0e006431f01C3EDD1266eE16364f0B6
+
+# OpenSea assets - 
+
+Assets sold to 0x5BEeFfcf97b675c42A214Dad9c4423e52884F71a - 
+
+https://rinkeby.opensea.io/assets/0xd0868d0ca0e006431f01c3edd1266ee16364f0b6/21
+https://rinkeby.opensea.io/assets/0xd0868d0ca0e006431f01c3edd1266ee16364f0b6/4
+https://rinkeby.opensea.io/assets/0xd0868d0ca0e006431f01c3edd1266ee16364f0b6/3
+https://rinkeby.opensea.io/assets/0xd0868d0ca0e006431f01c3edd1266ee16364f0b6/2
+https://rinkeby.opensea.io/assets/0x0fbacb5798d418b8965fbebe0a514084061cdb46/5
+
+Remaining assets - 
+
+https://rinkeby.opensea.io/accounts/Imdad15
 
 # Project Resources
 
