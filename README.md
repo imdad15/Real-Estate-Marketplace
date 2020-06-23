@@ -7,8 +7,7 @@ This project is used for building a decentralized housing product.
   1. Clone repo and unzip it to the folder
   2. Open the Terminal at this folder
   3. Install dependencies
-  
-    ```bash
+   ```bash
    > npm install
    ```
   4. Compile contracts
