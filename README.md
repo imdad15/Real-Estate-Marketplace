@@ -1,4 +1,4 @@
-# Real Estate Marketplace(Udacity Blockchain Capstone)
+# Real Estate Marketplace
 
 This project is used for building a decentralized housing product. 
 
